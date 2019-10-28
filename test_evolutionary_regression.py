@@ -1,9 +1,9 @@
 import unittest
 import evolutionary_regression
 
-
 if __name__ == '__main__':
     unittest.main()
+
 
 class MyTestCase(unittest.TestCase):
     def test_sum_deviation_squared(self):
@@ -34,22 +34,21 @@ class MyTestCase(unittest.TestCase):
         self.assertNotEqual(test_line, test_child_line)
 
     def test_choose_heir_best_child_is_line(self):
+        parent = evolutionary_regression.Line(1, 0)
         p = [(1, 4), (2, 4), (3, 4)]
         test_child_1 = evolutionary_regression.Line(1, 0)
         test_child_2 = evolutionary_regression.Line(2, 1)
         test_child_3 = evolutionary_regression.Line(.2, 3)
         children = (test_child_1, test_child_2, test_child_3)
-        heir = evolutionary_regression.choose_heir(p, children)
+        heir = evolutionary_regression.choose_heir(p, children, parent)
         self.assertIsInstance(heir, evolutionary_regression.Line, "Heir is line")
 
     def test_choose_heir_actually_chooses_best_heir(self):
+        parent = evolutionary_regression.Line(1, 0)
         p = [(1, 4), (2, 4), (3, 4)]
         test_child_1 = evolutionary_regression.Line(1, 0)
         test_child_2 = evolutionary_regression.Line(2, 1)
         test_child_3 = evolutionary_regression.Line(.2, 3)
         children = (test_child_1, test_child_2, test_child_3)
-        heir = evolutionary_regression.choose_heir(p, children)
+        heir = evolutionary_regression.choose_heir(p, children, parent)
         self.assertEqual(heir, test_child_3)
-
-
-
