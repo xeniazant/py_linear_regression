@@ -4,7 +4,6 @@
 
 import tkinter
 
-
 import random
 
 # take user input? and put in list or tuples?
@@ -46,7 +45,9 @@ def new_generation(parent_line):
     child_1 = new_child(parent_line)
     child_2 = new_child(parent_line)
     child_3 = new_child(parent_line)
-    return [child_1, child_2, child_3]
+    child_4 = new_child(parent_line)
+    child_5 = new_child(parent_line)
+    return [child_1, child_2, child_3, child_4, child_5]
 
 
 def choose_heir(points, children, parent):
@@ -61,19 +62,23 @@ def choose_heir(points, children, parent):
     return best_child
 
 
+def evolutionary_linreg(points, num_generations):
+    parent_line = Line(45, 8)
+    gen_counter = 0
+    # parent line is assigned an arbitrary linear starting point
+
+    while gen_counter < num_generations:
+        generation = new_generation(parent_line)
+        parent_line = choose_heir(points, generation, parent_line)
+        print("Generation: ", gen_counter, "Best line:", parent_line.equation_to_string(),
+              "Deviation squared: ", sum_deviation_squared(points, parent_line))
+        gen_counter += 1
+
+
 points = [(1, 1), (2, 3), (3, 3)]
 points_1 = [(2, 8), (5.1, 7.9), (4, 10), (6, 14), (10, 12), (12, 16)]
 
-parent_line = Line(45, 8)
-gen_counter = 0
-# parent line is assigned an arbitrary linear starting point
-
-while gen_counter < 200:
-    generation = new_generation(parent_line)
-    parent_line = choose_heir(points_1, generation, parent_line)
-    print("Generation: ", gen_counter, "Best line:", parent_line.equation_to_string(),
-          "Deviation squared: ", sum_deviation_squared(points_1, parent_line))
-    gen_counter += 1
+evolutionary_linreg(points, 40)
 
 # --------playing with tKinter--------
 
